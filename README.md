@@ -13,7 +13,7 @@ group1 = ['Sample1', 'Sample2', 'Sample3', 'Sample4', 'Sample5', 'Sample7']
 # Large group
 group2 = ['Somegroup']*100
 
-diff_s = diff_stats(df, group1=group1, group2=group2)
+diff_s = diff_stats(df, small_group=group1, large_group=group2)
 
 
 
