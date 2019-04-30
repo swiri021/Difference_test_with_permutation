@@ -5,7 +5,7 @@ df = pd.read_csv('Some_of_your_data.csv', index_col=0)
 group1 = ['Sample1', 'Sample2', 'Sample3', 'Sample4', 'Sample5', 'Sample7']
 group2 = ['Somegroup']*100
 
-diff_s = diff_stats(df, group1=group1, group2=group2)
+diff_s = diff_stats(df, small_group=group1, large_group=group2)
 
 # Combined result
 result = diff_s.combined_pvalues(perm=100)
