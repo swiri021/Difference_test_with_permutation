@@ -20,11 +20,11 @@ diff_s = diff_stats(df, group1=group1, group2=group2)
 # T-test result
 result = diff_s._permuted_ttest(df, small_group=group1, large_group=group2, perm=100)
 
-# Median-test result, this function is needed to be fixed later(Wrong algorithm)
-# result = diff_s._permuted_median_test(df, small_group=group1, large_group=group2, perm=100)
-# Combined result, this function is needed to be fixed later(Wrong algorithm)
-# result = diff_s.combined_pvalues(perm=100)
+# Median-test result(Null distribution from permuted large population)
+result = diff_s._permuted_median_test(df, small_group=group1, large_group=group2, perm=100)
 
+# Combined result
+result = diff_s.combined_pvalues(perm=100)
 
 print result
 ```
