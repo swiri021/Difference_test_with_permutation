@@ -62,26 +62,28 @@ class diff_stats:
 
 		test_genes = df.index.tolist()
 
-		permuted_pool = self._permutation(small_group=small_group, large_group=large_group, perm=perm)
+		permuted_pool1 = self._permutation(small_group=small_group, large_group=large_group, perm=perm)
+		permuted_pool2 = self._permutation(small_group=small_group, large_group=large_group, perm=perm)
 		p_arr = []
 
 		for x in test_genes:
 			null_median = []
-			g2_arr = []
 			g1 = df[small_group].loc[x].median()
 
-			for p in permuted_pool:  ##### Permutation table
-				g2 = df[p].loc[x]
-				null_median.append(g2.median()) # Null distribution
-				g2_arr.append(g2.values.tolist()) # Expression of Permuted samples
+			for p1,p2 in zip(permuted_pool1, permuted_pool2):  ##### Permutation table
+				g2_1 = df[p1].loc[x]
+				g2_2 = df[p2].loc[x]
+				null_median.append(g2_1.median()-g2_2.median()) # Null distribution
 
 			null_median = np.array(null_median)
-			g2_arr = list(itertools.chain(*g2_arr))
+			fc = g1.mean() - df[large_group].loc[x].mean() # Difference between Mean of small population and original large population (Fold Change)
 
-			up_cut = len(np.where(null_median>g1)[0])/float(len(null_median)) # Position of the median of small group in null dist
-			down_cut = len(np.where(null_median<g1)[0])/float(len(null_median)) # Position of the median of small group in null dist (opposite side) 2 tails
-			fc = g1.mean() - np.mean(g2_arr)
-			p_arr.append([x, fc, up_cut])
+			if fc >= 0:
+				pval_cut = len(np.where(null_median>g1)[0])/float(len(null_median)) # Position of the median of small group in null dist
+			else:
+				pval_cut= len(np.where(null_median<g1)[0])/float(len(null_median)) # Position of the median of small group in null dist (opposite side) 2 tails
+
+			p_arr.append([x, fc, pval_cut])
 
 		p_df = pd.DataFrame(data=p_arr, columns=['Gene', 'Mtest_FC', 'Mtest_Permuted_pval']).set_index('Gene')
 		return p_df
