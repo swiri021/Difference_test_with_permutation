@@ -21,8 +21,8 @@ result = diff_s.combined_pvalues(perm=100)
 # T-test result
 result = diff_s._permuted_ttest(df, small_group=group1, large_group=group2, perm=100)
 
-# Median-test result
-result = diff_s._permuted_median_test(df, small_group=group1, large_group=group2, perm=100)
+# Median-test result, this function is needed to be fixed later(Wrong algorithm)
+# result = diff_s._permuted_median_test(df, small_group=group1, large_group=group2, perm=100)
 
 print result
 ```
