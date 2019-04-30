@@ -37,10 +37,9 @@ class diff_stats:
 		for x in test_genes: ##### Each genes
 			t_stats = []
 			g2_arr = []
+			g1 = df[small_group].loc[x]
 			for p in permuted_pool: ##### Permutation table
-				g1 = df[small_group].loc[x]
 				g2 = df[p].loc[x]
-
 				s, p = stats.ttest_ind(g1, g2)
 				t_stats.append(s) # T-statistics
 				g2_arr.append(g2.values.tolist()) # Expression of Permuted samples
