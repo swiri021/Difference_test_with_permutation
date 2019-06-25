@@ -23,8 +23,8 @@ result = diff_s._permuted_ttest(df, small_group=group1, large_group=group2, perm
 # Median-test result(Null distribution from permuted large population)
 result = diff_s._permuted_median_test(df, small_group=group1, large_group=group2, perm=100)
 
-# Combined result (Caution : experimental function)
-result = diff_s.combined_pvalues(perm=100)
+# Combined result (Don't use this function because of an error)
+# result = diff_s.combined_pvalues(perm=100)
 
 print result
 ```
